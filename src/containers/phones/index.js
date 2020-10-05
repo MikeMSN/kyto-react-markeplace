@@ -4,6 +4,7 @@ import {fetchPhones, loadMorePhones} from "../../actions";
 import {getPhones} from "../../selectors";
 import * as R from 'ramda';
 import {Link} from "react-router-dom";
+import Layout from "../layout";
 
 
 class Phones extends Component {
@@ -15,7 +16,7 @@ class Phones extends Component {
     render() {
         const {phones, loadMorePhones} = this.props
         return (
-            <div>
+            <Layout>
                 <div className='books row'>
                     {phones.map((phone, index) => this.renderPhone(phone, index))}
                 </div>
@@ -28,7 +29,7 @@ class Phones extends Component {
                         </button>
                     </div>
                 </div>
-            </div>
+            </Layout>
         )
     }
 
