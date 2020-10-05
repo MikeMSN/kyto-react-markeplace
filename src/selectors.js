@@ -8,3 +8,5 @@ export const getPhoneById = (state, id) => {
 export const getPhones = state => {
     return R.map(id => getPhoneById(state, id), state.phonesPage.ids);
 }
+
+export const getRenderedPhonesLength = state => R.length(state.phonesPage.ids)
