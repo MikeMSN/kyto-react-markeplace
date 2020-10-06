@@ -1,4 +1,5 @@
 import {
+    ADD_PHONE_TO_BASKET,
     FETCH_PHONE_BY_ID_FAILURE,
     FETCH_PHONE_BY_ID_START, FETCH_PHONE_BY_ID_SUCCESS,
     FETCH_PHONES_FAILURE,
@@ -73,4 +74,11 @@ export const fetchPhoneById = id => async (dispatch, getState) => {
         })
 
     }
+}
+
+export const addPhoneToBasket = id => dispatch => {
+    dispatch({
+        type: ADD_PHONE_TO_BASKET,
+        payload: id
+    })
 }
