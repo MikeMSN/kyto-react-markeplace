@@ -9,5 +9,6 @@ export default (
         {/*exact for correct define paths for new routes, than starts with '/'*/}
         <Route path='/' component={Phones} exact/>
         <Route path='/phones/:id' component={Phone}/>
+        <Route path='/categories/:id' component={Phones}/>
     </Switch>
 )
