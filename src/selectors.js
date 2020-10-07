@@ -2,11 +2,15 @@ import * as R from 'ramda'
 
 
 export const getPhoneById = (state, id) => {
-   return  R.prop(id, state.phones)
+    return R.prop(id, state.phones)
 }
 
 export const getPhones = state => {
-    return R.map(id => getPhoneById(state, id), state.phonesPage.ids);
+    const phones = state.phonesPage.ids
+        .map(id => getPhoneById(state, id))
+        .filter(item => item.name.includes(state.phonesPage.search) )
+
+    return phones;
 }
 
 export const getRenderedPhonesLength = state => R.length(state.phonesPage.ids)
