@@ -7,10 +7,41 @@ import {
     getBasketPhonesWithCount
 } from "../../selectors";
 
-const Basket = ({phones, totalPrice}) => {
+import {removePhoneFromBasket, cleanBasket, basketCheckout} from '../../actions';
+import {Link} from "react-router-dom";
+
+const Basket = ({
+                    phones,
+                    totalPrice,
+                    removePhoneFromBasket,
+                    cleanBasket,
+                    basketCheckout
+                }) => {
     const isBasketEmpty = R.isEmpty(phones)
     const renderSidebar = () => (
-        <div>Sidebar</div>
+        <div>
+            <Link to='/' className='btn btn-info'
+            >
+                <span className='glyphicon glyphicon-info-sign'/>
+                <span>Continue shopping!</span>
+            </Link>
+            {R.not(isBasketEmpty) && <div>
+                <button onClick={cleanBasket}
+                        className='btn btn-danger'
+                >
+                    <span className='glyphicon glyphicon-trash'/>
+                    clean cart
+                </button>
+                <button className='btn btn-success'
+                        onClick={() => basketCheckout(phones)}
+                >
+                    <span className='glyphicon glyphicon-envelope'>
+                        Checkout
+                    </span>
+
+                </button>
+            </div>}
+        </div>
     )
 
     const renderContent = () => {
@@ -37,7 +68,9 @@ const Basket = ({phones, totalPrice}) => {
                                 <td>${phone.price}</td>
                                 <td>{phone.count}</td>
                                 <td>
-                                    <span className='delete-cart'></span>
+                                    <span className='delete-cart'
+                                          onClick={() => removePhoneFromBasket(phone.id)}
+                                    ></span>
                                 </td>
                             </tr>
                         ))}
@@ -78,4 +111,11 @@ const mapStateToProps = (state) => {
         totalPrice: getTotalBasketPrice(state)
     }
 }
-export default connect(mapStateToProps)(Basket)
+
+const mapDispatchToProps = {
+    removePhoneFromBasket,
+    cleanBasket,
+    basketCheckout
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Basket)
